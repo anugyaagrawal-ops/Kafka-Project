@@ -1,4 +1,4 @@
-package com.example.codedecode.Services;
+package com.example.policybazaar.com.customer.Services;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.kafka.core.KafkaTemplate;
