@@ -20,8 +20,14 @@ public class SpringSecurityConfig {
 	@Bean
 	public UserDetailsService userDetailsService(PasswordEncoder encoder) {
 		UserDetails user1 = User.withUsername("Anugya").
-				password(encoder.encode("anugya")).roles("ADMIN").build();
-		return new InMemoryUserDetailsManager(user1);
+				password(encoder.encode("anugya")).roles("ROLE_ADMIN").build();
+		
+		UserDetails user2 = User.withUsername("Customer2").
+				password(encoder.encode("anugya")).roles("ROLE_USER").build();
+		
+		UserDetails user3 = User.withUsername("Customer3").
+				password(encoder.encode("anugya")).roles("ROLE_USER").build();
+		return new InMemoryUserDetailsManager(user1 , user2,user3);
 	}
 	
 	@Bean

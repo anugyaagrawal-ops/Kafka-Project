@@ -6,6 +6,7 @@ import java.util.Map;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -29,8 +30,9 @@ public class CustomerController {
 	 * getMessageFromClient(@RequestParam("message") String message) {
 	 * producer.sendMsgToTopic(message); }
 	 */
-
+	
 	@PostMapping("/addCustomer")
+	@PreAuthorize("hasAuthority('ROLE_ADMIN')")
 	public ResponseEntity<Map<String, Object>> addCustomer(@RequestBody Customer customer) {
 		Map<String, Object> response = new HashMap<>();
 		try {
@@ -48,7 +50,9 @@ public class CustomerController {
 
 		return new ResponseEntity<Map<String, Object>>(response, HttpStatus.OK);
 	}
+	
 	@PostMapping("/updateCustomer")
+	@PreAuthorize("hasAuthority('ROLE_USER')")
 	public ResponseEntity<Map<String, Object>> updateCustomer(@RequestBody Customer customer) {
 		Map<String, Object> response = new HashMap<>();
 		try {
@@ -66,6 +70,7 @@ public class CustomerController {
 	}
 	
 	@GetMapping("/getCustomerById/{id}")
+	@PreAuthorize("hasAuthority('ROLE_USER')")
 	public ResponseEntity<Map<String, Object>> updateCustomer(@PathVariable int id) {
 		Map<String, Object> response = new HashMap<>();
 		try {
